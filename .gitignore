@@ -1,0 +1,12 @@
+dist/
+build/
+*.pyc
+__pycache__/
+.DS_Store
+myenv2/
+.idea/
+*.log
+*.egg-info/
+.vscode/
+*.swp
+*.swo
