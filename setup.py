@@ -10,15 +10,18 @@ ffmpeg_path = os.popen('which ffmpeg').read().strip()
 if not os.path.exists(ffmpeg_path):
     raise FileNotFoundError(f"ffmpeg not found at {ffmpeg_path}")
 
+# 定义主应用文件
 APP = ['audio_extractor.py']
+# 定义需要包含的数据文件
 DATA_FILES = [('', [ffmpeg_path])]
 
+# 定义 py2app 的选项
 OPTIONS = {
-    'argv_emulation': False,
-    'packages': ['PyQt5', 'moviepy', 'numpy', 'decorator', 'imageio', 'tqdm', 'proglog', 'chardet', 'requests'],
-    'includes': ['sip', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets'],
-    'excludes': ['tkinter'],
-    'plist': {
+    'argv_emulation': False,  # 禁用参数模拟
+    'packages': ['PyQt5', 'moviepy', 'numpy', 'decorator', 'imageio', 'tqdm', 'proglog', 'chardet', 'requests'],  # 需要包含的包
+    'includes': ['sip', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets'],  # 需要包含的模块
+    'excludes': ['tkinter'],  # 排除的模块
+    'plist': {  # 应用程序的元数据
         'CFBundleName': 'Audio Extractor',
         'CFBundleDisplayName': 'Audio Extractor',
         'CFBundleGetInfoString': "Extract audio from video files",
@@ -38,6 +41,7 @@ def post_process(target_dir):
     os.chmod(dest, 0o755)
     print(f"Set execute permissions for {dest}")
 
+# 设置应用程序
 setup(
     app=APP,
     name='Audio Extractor',
