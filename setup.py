@@ -19,7 +19,7 @@ DATA_FILES = [('', [ffmpeg_path])]
 OPTIONS = {
     'argv_emulation': False,  # 禁用参数模拟
     'packages': ['PyQt5', 'moviepy', 'numpy', 'decorator', 'imageio', 'tqdm', 'proglog', 'chardet', 'requests'],  # 需要包含的包
-    'includes': ['sip', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets'],  # 需要包含的模块
+    'includes': ['sip', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets', 'PyQt5.QtWidgets.QFileDialog', 'PyQt5.sip'],
     'excludes': ['tkinter'],  # 排除的模块
     'plist': {  # 应用程序的元数据
         'CFBundleName': 'Audio Extractor',
@@ -40,6 +40,10 @@ def post_process(target_dir):
     # 确保 ffmpeg 有执行权限
     os.chmod(dest, 0o755)
     print(f"Set execute permissions for {dest}")
+    
+    # 设置环境变量
+    os.environ['IMAGEIO_FFMPEG_EXE'] = dest
+    print(f"Set IMAGEIO_FFMPEG_EXE environment variable to {dest}")
 
 # 设置应用程序
 setup(
